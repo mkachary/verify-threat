@@ -1,0 +1,7 @@
+{
+    "input_path": "data/fake1.ndjson",
+    "output_path": "data/annonomised_sample_fake.ndjson",
+    "username": "True",
+    "Tenent_id": "False",
+    "Encryption_key": "Verify-threat-intelligence"
+}
