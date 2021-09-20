@@ -3,5 +3,6 @@
     "output_path": "data/annonomised_sample_fake.ndjson",
     "username": "True",
     "Tenent_id": "False",
+    "Max_instances_to_process_at_once": 25000,
     "Encryption_key": "Verify-threat-intelligence"
 }

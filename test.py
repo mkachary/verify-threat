@@ -56,8 +56,8 @@ def anonymiser(line, enc):
     k['_source']['data']['username'] = (enc.encrypt(k['_source']['data']['username'])).decode('utf8')
     return k
 
-def multiprocessing_stream(enc, input_file, output_file):
-    pool = multiprocessing.Pool(processes=8)
+def multiprocessing_stream(enc, input_file, output_file, n_lines):
+    pool = multiprocessing.Pool(processes=os.cpu_count())
     if os.path.isfile(output_file):
         os.remove(output_file)
     else:
@@ -67,7 +67,7 @@ def multiprocessing_stream(enc, input_file, output_file):
         with open(input_file, 'r') as f:
             for i, line in enumerate(f,1):
                 repo.append(line)
-                if(i%50000==0):
+                if(i%n_lines==0):
                     # print(repo)
                     res = pool.map(partial(anonymiser, enc = enc), repo)
                     repo = []
@@ -84,8 +84,9 @@ if(__name__ =="__main__"):
     enc = encryption.Encryption(key = conf['Encryption_key'])
     input_file = conf['input_path']
     output_file = conf['output_path']
+    max_instances = conf['Max_instances_to_process_at_once']
     start = time.time()
-    multiprocessing_stream(enc, input_file, output_file)
+    multiprocessing_stream(enc, input_file, output_file, max_instances)
     print("time taken for multiprocessing",time.time()-start)
 
     # start = time.time()

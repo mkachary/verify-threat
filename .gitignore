@@ -2,3 +2,4 @@ data/
 *.ndjson
 enc_ndjson.py
 enc_stream_ndjson.py
+__pycache__/
